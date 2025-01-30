@@ -3,6 +3,8 @@ import * as THREE from 'three'
 import LayoutStage from './LayoutStage'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { AxesHelper } from 'three'
+import GUI from 'lil-gui'
+import TornadoLayout from './TornadoLayout';
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -22,8 +24,25 @@ const sizes = {
 /**
  * LayoutElement
  */
-const stage=new LayoutStage();
-scene.add(stage.group);
+const stage={
+    xPosition:0,
+    yPosition:0,
+    elementWidth:1,
+    elementHeight:1,
+    radius:1,
+}
+const stage2={
+    xPosition:0,
+    yPosition:1.5,
+    elementWidth:1,
+    elementHeight:1,
+    radius:1.2,
+}
+const tornadoLayout=new TornadoLayout();
+
+tornadoLayout.addStage(stage);
+tornadoLayout.addStage(stage2);
+tornadoLayout.addToScene(scene);
 
 /**
  * Camera
@@ -36,6 +55,11 @@ const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true // Optional - adds smooth damping effect
 
 const axesHelper = new AxesHelper(5);
+
+
+
+
+
 scene.add( axesHelper );
 
 
@@ -64,6 +88,19 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
+
+
+
+/**
+ * Debug
+ */
+const gui = new GUI();
+//add the stage object rotation to the gui value between 0 and 360 and on change of the value call the rotateStage function
+
+gui.add(tornadoLayout, 'rotation').min(0).max(6.28).step(0.01).onChange(()=>{tornadoLayout.rotateLayout()});
+
+
+
 
 // Add this animation loop at the end of your file
 function animate() {

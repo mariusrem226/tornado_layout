@@ -5,20 +5,23 @@ class LayoutStage {
         this.group = new THREE.Group();
         this.elements = [];
         this.config = {
-           
-            
+            xPosition: config.xPosition || 0,
+            yPosition: config.yPosition || 0,
             elementWidth: config.elementWidth || 1,
             elementHeight: config.elementHeight || 1,
             radius: config.radius || 1,
-            spacing: config.spacing || 0.1
+            spacing: config.spacing || 0.1,
+            rotation: config.rotation || 0,
         };
 
         this.createStage();
     }
     //function which rotates the stage
     rotateStage(angle) {
+        console.log(angle);
         this.group.rotation.y = angle;
     }
+    
    //function to position the element on a circle around the center of the screen
    positionElementsOnCircle() {
     const center = new THREE.Vector3(0, 0, 0);
