@@ -48,11 +48,11 @@ tornadoLayout.addToScene(scene);
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
-camera.position.z = 3
+camera.position.z = 5
 scene.add(camera)
 
-const controls = new OrbitControls(camera, canvas)
-controls.enableDamping = true // Optional - adds smooth damping effect
+//const controls = new OrbitControls(camera, canvas)
+//controls.enableDamping = true // Optional - adds smooth damping effect
 
 const axesHelper = new AxesHelper(5);
 
@@ -89,7 +89,12 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
 
-
+//rotate the tornadoLayout object when I scroll the mouse wheel
+window.addEventListener('wheel', (event) => {
+    console.log(event.deltaY);
+    tornadoLayout.rotation += event.deltaY * 0.001;
+    tornadoLayout.rotateLayout();
+})
 
 /**
  * Debug
@@ -97,7 +102,7 @@ renderer.render(scene, camera)
 const gui = new GUI();
 //add the stage object rotation to the gui value between 0 and 360 and on change of the value call the rotateStage function
 
-gui.add(tornadoLayout, 'rotation').min(0).max(6.28).step(0.01).onChange(()=>{tornadoLayout.rotateLayout()});
+//gui.add(tornadoLayout, 'rotation').min(0).max(6.28).step(0.01).onChange(()=>{tornadoLayout.rotateLayout()});
 
 
 
@@ -105,7 +110,7 @@ gui.add(tornadoLayout, 'rotation').min(0).max(6.28).step(0.01).onChange(()=>{tor
 // Add this animation loop at the end of your file
 function animate() {
     // Update controls
-    controls.update()
+  //  controls.update()
 
     // Render
     renderer.render(scene, camera)
