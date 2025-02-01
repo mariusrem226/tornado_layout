@@ -83,6 +83,12 @@ class LayoutStage {
             modifier(element);
         }
     }
+    
+    moveGroup(x, y, z) {
+        this.group.position.x += x;
+        this.group.position.y += y;
+        this.group.position.z += z;
+    }
 }
 
 export default LayoutStage;

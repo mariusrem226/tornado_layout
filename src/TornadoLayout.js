@@ -33,5 +33,12 @@ class TornadoLayout {
         console.log(this.stages);
         
     }
+    goDirection(direction){
+       
+            this.stages.forEach(stage => {
+                stage.moveGroup(0, direction*0.5, 0);
+            });
+        
+    }
 }
 export default TornadoLayout;

@@ -93,7 +93,14 @@ renderer.render(scene, camera)
 window.addEventListener('wheel', (event) => {
     console.log(event.deltaY);
     tornadoLayout.rotation += event.deltaY * 0.001;
+    
+    
     tornadoLayout.rotateLayout();
+    if(event.deltaY>2){
+        tornadoLayout.goDirection(event.deltaY * 0.001);
+    }else if(event.deltaY<-2){
+        tornadoLayout.goDirection(event.deltaY * 0.001);
+    }
 })
 
 /**
