@@ -5,6 +5,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { AxesHelper } from 'three'
 import GUI from 'lil-gui'
 import TornadoLayout from './TornadoLayout';
+import data from '../static/data.json';
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -21,27 +22,12 @@ const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 }
-/**
- * LayoutElement
- */
-const stage={
-    xPosition:0,
-    yPosition:0,
-    elementWidth:1,
-    elementHeight:1,
-    radius:1,
-}
-const stage2={
-    xPosition:0,
-    yPosition:1.5,
-    elementWidth:1,
-    elementHeight:1,
-    radius:1.2,
-}
+
 const tornadoLayout=new TornadoLayout();
 
-tornadoLayout.addStage(stage);
-tornadoLayout.addStage(stage2);
+data.forEach(stage => { 
+    tornadoLayout.addStage(stage);
+});
 tornadoLayout.addToScene(scene);
 
 /**
