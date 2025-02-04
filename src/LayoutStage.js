@@ -9,10 +9,11 @@ class LayoutStage {
             yPosition: config.yPosition || 0,
             elementWidth: config.elementWidth || 1,
             elementHeight: config.elementHeight || 1,
-            radius: config.radius || 1,
+            radius: config.radius || 2.5,
             spacing: config.spacing || 0.1,
             rotation: config.rotation || 0,
         };
+        
 
         this.createStage();
     }
@@ -24,7 +25,7 @@ class LayoutStage {
    //function to position the element on a circle around the center of the screen
    positionElementsOnCircle() {
     const center = new THREE.Vector3(0, 0, 0);
-    const radius = 2.5;
+    const radius = this.config.radius;
     const angle = 0;
     const angleIncrement = 2 * Math.PI / this.elements.length;
     this.elements.forEach((element, index) => {
