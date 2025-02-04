@@ -9,5 +9,5 @@ void main() {
     float mixValue = sin(vUv.x * 5.0 + uTime) * 0.5 + 0.5;
     vec3 finalColor = vec3(0., 0., 0.);
     
-    gl_FragColor = vec4(finalColor, 1.0);
+    gl_FragColor = vec4(finalColor, 0.6);
 }

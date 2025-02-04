@@ -77,7 +77,6 @@ renderer.render(scene, camera)
 
 //rotate the tornadoLayout object when I scroll the mouse wheel
 window.addEventListener('wheel', (event) => {
-    console.log(event.deltaY);
     tornadoLayout.rotation += event.deltaY * 0.001;
     
     

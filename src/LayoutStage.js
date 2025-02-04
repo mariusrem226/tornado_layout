@@ -18,7 +18,6 @@ class LayoutStage {
     }
     //function which rotates the stage
     rotateStage(angle) {
-        console.log(angle);
         this.group.rotation.y = angle;
     }
     

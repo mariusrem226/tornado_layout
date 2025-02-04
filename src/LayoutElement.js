@@ -15,7 +15,10 @@ class LayoutElement {
             },
             vertexShader: layoutElementVertexShader,
             fragmentShader: layoutElementFragmentShader,
-            side: THREE.DoubleSide
+            depthWrite: false,
+            depthTest: false,
+            side: THREE.DoubleSide,
+            transparent: true
         });
 
         // Create plane geometry
