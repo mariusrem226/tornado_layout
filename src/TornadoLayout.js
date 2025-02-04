@@ -34,8 +34,16 @@ class TornadoLayout {
         
     }
     goDirection(direction){
-       
+            const limit=6;
             this.stages.forEach(stage => {
+                //if the stage position is bigger than 10 move it at -10
+                if(stage.group.position.y > limit){
+                    stage.group.position.y=-limit;
+
+                }else if(stage.group.position.y < -limit){
+                    stage.group.position.y=limit;
+                }
+                
                 stage.moveGroup(0, direction*0.5, 0);
             });
         
