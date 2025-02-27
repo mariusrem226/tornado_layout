@@ -7,7 +7,7 @@ class TornadoLayout {
         this.rotation=0;
         this.config={
             speed:0.5,
-            limit:6,
+            limit:9,
             stageSpacing:1.5
         }
     }
@@ -37,7 +37,7 @@ class TornadoLayout {
         
     }
     goDirection(direction){
-            const limit=6;
+            const limit=100;
             this.stages.forEach(stage => {
                 //if the stage position is bigger than the limit move it at the lower stage position - stage spacing
                 if(stage.group.position.y > this.config.limit){

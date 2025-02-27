@@ -1,28 +1,32 @@
 import * as THREE from 'three';
 import layoutElementVertexShader from './shaders/layoutElement/vertex.glsl'
 import layoutElementFragmentShader from './shaders/layoutElement/fragment.glsl'
-
-
+const textureLoader = new THREE.TextureLoader();
 
 class LayoutElement {
     constructor(width = 1.6, height = 0.9) {
-      
-
-        // Create shader material
+      let textureNumber=Math.floor(Math.random()*6)+1;
+      const texture = textureLoader.load(
+        "img/VG0"+textureNumber+".jpg"
+       
+    )
+       
+            // Create shader material
         this.material = new THREE.ShaderMaterial({
             uniforms: {
-                uTime: { value: 0.0 }
+                uTime: { value: 0.0 },
+                uTexture: { value: texture }
             },
             vertexShader: layoutElementVertexShader,
             fragmentShader: layoutElementFragmentShader,
             depthWrite: false,
             depthTest: false,
             side: THREE.DoubleSide,
-            transparent: true
+            transparent: true,
         });
 
         // Create plane geometry
-        const geometry = new THREE.PlaneGeometry(width, height, 100, 100);
+        const geometry = new THREE.PlaneGeometry(width, height, 50, 50);
 
         // Create mesh
         this.mesh = new THREE.Mesh(geometry, this.material);

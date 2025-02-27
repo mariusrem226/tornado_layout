@@ -7,19 +7,21 @@ class LayoutStage {
         this.config = {
             xPosition: config.xPosition || 0,
             yPosition: config.yPosition || 0,
+          
             elementWidth: config.elementWidth || 1,
             elementHeight: config.elementHeight || 1,
             radius: config.radius || 2.5,
             spacing: config.spacing || 0.1,
             rotation: config.rotation || 0,
+            initialRotation: config.initialRotation || 0,
         };
         
-
+        this.rotateStage(this.config.rotation);
         this.createStage();
     }
     //function which rotates the stage
     rotateStage(angle) {
-        this.group.rotation.y = angle;
+        this.group.rotation.y = this.config.initialRotation+angle;
     }
     
    //function to position the element on a circle around the center of the screen

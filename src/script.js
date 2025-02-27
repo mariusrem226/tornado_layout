@@ -6,6 +6,10 @@ import { AxesHelper } from 'three'
 import GUI from 'lil-gui'
 import TornadoLayout from './TornadoLayout';
 import data from '../static/data.json';
+import { SmoothScroller } from './utils/SmoothScroller';
+//smooth scroller
+const smoothScroller = new SmoothScroller();
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -33,7 +37,7 @@ tornadoLayout.addToScene(scene);
 /**
  * Camera
  */
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height)
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,0.1,10)
 camera.position.z = 5
 scene.add(camera)
 
@@ -46,7 +50,7 @@ const axesHelper = new AxesHelper(5);
 
 
 
-scene.add( axesHelper );
+//scene.add( axesHelper );
 
 
 
@@ -98,78 +102,7 @@ const gui = new GUI();
 
 
 // Smooth wheel delta values without scrolling the page
-document.addEventListener('DOMContentLoaded', function() {
-    // Track values
-    let value = 0;       // Current smoothed value
-    let velocity = 0;    // Current velocity (for momentum)
-    let animating = false;
-    
-    // Constants
-    const FRICTION = 0.95;       // Reduces velocity over time (0-1, higher = less friction)
-    const SENSITIVITY = 0.5;     // How much wheel events affect movement
-    const THRESHOLD = 0.5;     // When to stop animation
-    const MAX_VALUE = 100;       // Maximum absolute value to prevent excessive buildup
-    
-    // Prevent default scrolling on the whole page
-    document.addEventListener('wheel', function(e) {
-      e.preventDefault();
-      
-      // Add to velocity based on wheel movement
-      velocity += e.deltaY * SENSITIVITY;
-      
-      // Limit maximum velocity
-      velocity = Math.max(Math.min(velocity, MAX_VALUE), -MAX_VALUE);
-      
-      // Start animation loop if not already running
-      if (!animating) {
-        animating = true;
-        animate();
-      }
-    }, { passive: false });
-    
-    // Animation function using requestAnimationFrame
-    function animate() {
-      // Apply velocity to value
-      value += velocity;
-      
-      // Apply friction to gradually reduce velocity
-      velocity *= FRICTION;
-      
-      // Stop if velocity is very low
-      if (Math.abs(velocity) < THRESHOLD) {
-        velocity = 0;
-        animating = false;
-        updateElement(value);
-        return;
-      }
-      
-      // Apply the value to your element or interaction
-      updateElement(value);
-      
-      // Continue animation
-      requestAnimationFrame(animate);
-    }
-    
-    // Function to apply the eased value to your element
-    function updateElement(val) {
-      // Demo - move an element horizontally (with limits to keep on screen)
-      const demoElement = document.getElementById('demo-element');
-      if (demoElement) {
-        // Restrict movement to stay within reasonable bounds
-        const limitedVal = Math.max(Math.min(val % 300, 200), -200);
-        demoElement.style.transform = `translateX(${limitedVal}px)`;
-        demoElement.textContent = `Value: ${Math.round(limitedVal)}`;
-      }
-      
-      // Display current velocity for debugging
-      console.log('Current velocity:', velocity);
-      tornadoLayout.rotation += velocity*0.001;
-      tornadoLayout.rotateLayout();
-    }
-    
-    // Create a demo element if not present
-    
-  });
+
 
 // Add this animation loop at the end of your file
 function animate() {
@@ -177,6 +110,21 @@ function animate() {
   //  controls.update()
 
     // Render
+    const velocity=smoothScroller.velocity;
+    if(Math.abs(velocity)>1){
+        tornadoLayout.rotation += velocity * 0.001;
+        tornadoLayout.rotateLayout();
+    }
+    else{
+        tornadoLayout.rotation += 1 * 0.001;
+        tornadoLayout.rotateLayout();
+    }
+    if( velocity>2){
+        tornadoLayout.goDirection(velocity * 0.001);
+    }else if(velocity<-2){
+        tornadoLayout.goDirection(velocity * 0.001);
+    }
+   
     renderer.render(scene, camera)
 
     // Call animate again on the next frame
