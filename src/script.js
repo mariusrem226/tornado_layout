@@ -38,7 +38,7 @@ tornadoLayout.addToScene(scene);
  * Camera
  */
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,0.1,10)
-camera.position.z = 5
+camera.position.z = 2
 scene.add(camera)
 
 //const controls = new OrbitControls(camera, canvas)
