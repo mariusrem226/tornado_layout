@@ -37,8 +37,8 @@ tornadoLayout.addToScene(scene);
 /**
  * Camera
  */
-const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,0.1,10)
-camera.position.z = 2
+const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height,0.1,100)
+camera.position.z = 2;
 scene.add(camera)
 
 //const controls = new OrbitControls(camera, canvas)
@@ -72,11 +72,14 @@ window.addEventListener('resize', () =>
  */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    alpha: true
+    alpha: true,
+    antialias: true
 })
 
 
-renderer.setSize(sizes.width, sizes.height)
+renderer.setSize(window.innerWidth * 1.5, window.innerHeight * 1.5);
+renderer.domElement.style.width = `${window.innerWidth}px`;
+renderer.domElement.style.height = `${window.innerHeight}px`;
 renderer.render(scene, camera)
 
 //rotate the tornadoLayout object when I scroll the mouse wheel
@@ -95,7 +98,7 @@ renderer.render(scene, camera)
 /**
  * Debug
  */
-const gui = new GUI();
+//const gui = new GUI();
 //add the stage object rotation to the gui value between 0 and 360 and on change of the value call the rotateStage function
 
 //gui.add(tornadoLayout, 'rotation').min(0).max(6.28).step(0.01).onChange(()=>{tornadoLayout.rotateLayout()});
